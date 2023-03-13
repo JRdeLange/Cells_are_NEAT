@@ -12,10 +12,10 @@ class Renderer:
         title = "Cells are NEAT"
         self.tk = PygameToolkit()
         self.window, self.clock = self.tk.init_pygame(config.window_height, config.window_width, title)
-        self.cache_sprites()
 
-        # Things to cache
-        self.sun_map_sprite = pygame.surfarray.make_surface(self.world.sun_map.as_image())
+    def set_world(self, world):
+        self.world = world
+        self.cache_sprites()
 
     def tick(self):
         self.tk.clear(color=[100, 100, 170])
@@ -42,3 +42,7 @@ class Renderer:
         sun_map.set_alpha(config.sun_map_alpha)
         self.tk.add_sprite("sun_map", surface=sun_map)
 
+    # Remove all generation-specific things
+    def reset(self):
+        self.tk.reset()
+        self.world = None

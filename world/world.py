@@ -13,13 +13,14 @@ class World:
         # Things to own
         self.spawner = Spawner(self)
         self.cells = []
+        self.cell_archive = []
         self.sun_map = SunMap()
 
         # Initialize
-        self.populate_world()
+        # self.populate_world()
 
-    def populate_world(self):
-        self.spawner.spawn_n_cells(config.nr_of_cells)
+    def populate_world(self, n=config.nr_of_cells):
+        self.spawner.spawn_n_cells(n)
 
     def tick(self):
         # Everyone acts
@@ -30,12 +31,5 @@ class World:
         for cell in self.cells:
             if not cell.alive:
                 cell.die()
+                self.cell_archive.append(cell)
                 self.cells.remove(cell)
-
-    def move_cells(self):
-        for cell in self.cells:
-            cell.move()
-            cell.metabolize()
-
-            # Apply friction
-            cell.velocity *= config.friction

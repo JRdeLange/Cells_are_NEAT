@@ -1,13 +1,16 @@
 import vecmath.vecmath as vm
 from vecmath.Vec2D import Vec2D
 import config
+import cell.senses as senses
+import random
+
 
 class Cell:
 
-    def __init__(self, pos: Vec2D, forward: Vec2D, world, genome, net):
+    def __init__(self, pos: Vec2D, forward: Vec2D, world):
         self.world = world
-        self.genome = genome
-        self.net = net
+        self.genome = None
+        self.net = None
 
         self.pos = pos
         self.forward = forward
@@ -16,19 +19,40 @@ class Cell:
         self.energy = config.starting_energy
         self.metabolism = config.metabolism
         self.swim_strength = config.swim_strength
+        self.sunlight_probe_length = config.sunlight_probe_length
 
         self.age = 0
         self.alive = True
 
+    def set_genome_and_net(self, genome, net):
+        self.genome = genome
+        self.net = net
+
     def rotate_by(self, rad):
-        self.forward.rotate_by(rad)
+        self.forward = self.forward.rotated_by(rad)
 
     def tick(self):
         self.age += 1
 
+        observation = senses.sense_sunlight(self)
+        output = self.net.activate(observation)
+        action = self.max_action(output)
+        self.rotate_by(action)
+
         self.move()
         self.photosynthesize()
         self.metabolize()
+
+    def max_action(self, output):
+        highest = None
+        action = []
+        for idx, value in enumerate(output):
+            if highest is None or value > highest:
+                highest = value
+                action = [config.action_dict[idx]]
+            if value == highest:
+                action.append(config.action_dict[idx])
+        return random.choice(action)
 
     def photosynthesize(self):
         sun_strength = self.world.sun_map.value_at(self.pos)
@@ -36,9 +60,8 @@ class Cell:
 
     def metabolize(self):
         self.energy -= self.metabolism
-        print(self.energy)
-        if self.energy <= 0:
-            self.alive = False
+        #if self.energy <= 0:
+            #self.alive = False
 
     def die(self):
         pass

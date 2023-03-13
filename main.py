@@ -1,14 +1,10 @@
 from world.world import World
 from renderer.renderer import Renderer
+from neat_trainer.neat_trainer import NeatTrainer
 
 def main():
-    world = World()
-    renderer = Renderer(world)
-    print(renderer.window)
-
-    while True:
-        world.tick()
-        renderer.tick()
+    renderer = Renderer(None)
+    trainer = NeatTrainer(renderer)
 
 
 

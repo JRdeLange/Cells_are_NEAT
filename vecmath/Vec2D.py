@@ -23,13 +23,32 @@ class Vec2D:
     def as_degrees(self):
         return math.degrees(self.as_radians())
 
+    def normalized(self):
+        return self / self.length()
+
+    def length(self):
+        return math.sqrt(self.x * self.x + self.y * self.y)
+
     def set_from_rad(self, rad):
         self.x = math.cos(rad)
         self.y = math.sin(rad)
 
-    def rotate_by(self, rad):
+    def rotated_by(self, rad):
         curr_rad = self.as_radians()
-        self.set_from_rad(curr_rad + rad)
+        return Vec2D(rad=curr_rad + rad)
+
+    def wrapped(self, x_min=0, y_min=0, x_max=100, y_max=100):
+        new = Vec2D(self.x, self.y)
+        if new.x <= x_min:
+            new.x += (x_max - x_min)
+        elif new.x >= x_max:
+            new.x -= (x_max - x_min)
+
+        if new.y <= y_min:
+            new.y += (y_max - y_min)
+        elif new.y >= y_max:
+            new.y -= (y_max - y_min)
+        return new
 
     # Redefine adding
     def __add__(self, other):

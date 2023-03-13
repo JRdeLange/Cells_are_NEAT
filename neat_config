@@ -1,10 +1,10 @@
 # For possible things see https://neat-python.readthedocs.io/en/latest/config_file.html #
 
 [NEAT]
-# fitness_criterion     = max
-# fitness_threshold     = 3.9
+fitness_criterion     = max
+fitness_threshold     = 3.9
 no_fitness_termination = True
-pop_size              = 50
+pop_size              = 100
 reset_on_extinction   = False
 
 
@@ -61,7 +61,7 @@ enabled_default         = True
 enabled_mutate_rate     = 0.01
 
 feed_forward            = True
-initial_connection      = full_direct
+initial_connection      = unconnected
 
 # node add/remove rates
 node_add_prob           = 0.2

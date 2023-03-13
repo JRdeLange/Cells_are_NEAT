@@ -47,3 +47,6 @@ class PygameToolkit:
 
         self.window.blit(transformed, pos.as_tuple())
 
+    # Remove all generation-specific things
+    def reset(self):
+        self.cached_sprites = {}
