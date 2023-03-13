@@ -35,6 +35,8 @@ class Cell:
         self.age += 1
 
         observation = senses.sense_sunlight(self)
+        observation.insert(0, 1.0)
+
         output = self.net.activate(observation)
         action = self.max_action(output)
         self.rotate_by(action)

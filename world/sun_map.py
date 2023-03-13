@@ -7,15 +7,22 @@ import numpy as np
 class SunMap:
 
     def __init__(self):
-        self.noise = PerlinNoise(octaves=3, seed=1)
-        self.scale = 10
+        self.scale = config.sun_map_scale
         self.width = int(config.world_width / self.scale)
         self.height = int(config.world_height / self.scale)
         self.map = [[0] * self.height for x in range(self.width)]
-        self.fill_map()
+
+        if config.sun_map_type == "perlin":
+            self.noise = PerlinNoise(octaves=3, seed=1)
+            self.fill_map_with_perlin()
+        elif config.sun_map_type == "blobs":
+            self.place_blob(Vec2D(self.width / 2, self.height / 2), self.height / 3)
+        else:
+            raise ValueError("Provided invalid sun map type")
+
         self.image_of_map = self.as_image()
 
-    def fill_map(self):
+    def fill_map_with_perlin(self):
         for x in range(self.width):
             for y in range(self.height):
                 # Noise is from -0.5 to 0.5, we want it from 0 to 1
@@ -35,3 +42,13 @@ class SunMap:
                 value = self.map[x][y]
                 image[x][y] = [value * 255, value * 255, value * 255]
         return np.array(image)
+
+    def place_blob(self, pos, radius):
+        for x in range(self.width):
+            for y in range(self.height):
+                current = Vec2D(x, y)
+                dist = (pos - current).length()
+                value = (radius - dist) / radius
+                if value > 0:
+                    self.map[x][y] = value
+

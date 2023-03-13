@@ -2,7 +2,7 @@ import configparser
 
 # Trainer
 neat_config_path = "./neat_config"
-steps_per_generation = 1000
+steps_per_generation = 1500
 
 # Renderer
 window_width = 1200
@@ -15,6 +15,9 @@ world_width = window_width
 world_height = window_height
 nr_of_cells = 1
 friction = 0.97
+# "perlin" / "blobs"
+sun_map_type = "blobs"
+sun_map_scale = 10
 
 # Cells
 starting_energy = 50

@@ -19,7 +19,7 @@ class NeatTrainer:
         self.population.add_reporter(neat.Checkpointer(generation_interval=10, time_interval_seconds=None,
                                                        filename_prefix="testing-"))
 
-        self.train(51)
+        self.train(101)
 
         self.render = config.render
 
@@ -29,11 +29,11 @@ class NeatTrainer:
     def eval_genomes(self, genomes, neat_config):
         print(self.population.generation)
         self.render = False
-        if self.population.generation % 10 == 0:
+        if self.population.generation % 20 == 0:
             self.render = True
         # Create and fill world
         world = World()
-        world.populate_world(neat_config.pop_size)
+        world.populate_world(len(genomes))
         self.assign_genomes_and_nets(world, genomes, neat_config)
 
         if self.render:
@@ -60,5 +60,12 @@ class NeatTrainer:
                 self.renderer.tick()
 
     def assign_cell_fitnesses(self, world):
+        highest = 0
+        top_genome = None
         for cell in world.cells + world.cell_archive:
             cell.genome.fitness = world.sun_map.value_at(cell.pos)
+            if cell.genome.fitness > highest:
+                top_genome = cell.genome
+        print(top_genome)
+
+
