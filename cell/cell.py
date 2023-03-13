@@ -4,27 +4,49 @@ import config
 
 class Cell:
 
-    def __init__(self, pos: Vec2D, forward: Vec2D):
+    def __init__(self, pos: Vec2D, forward: Vec2D, world, genome, net):
+        self.world = world
+        self.genome = genome
+        self.net = net
+
         self.pos = pos
         self.forward = forward
         self.velocity = 0
 
-        self.energy = 100
+        self.energy = config.starting_energy
+        self.metabolism = config.metabolism
         self.swim_strength = config.swim_strength
 
-        self.count = 0
-
-
+        self.age = 0
+        self.alive = True
 
     def rotate_by(self, rad):
         self.forward.rotate_by(rad)
 
-    def move(self):
-        self.count += 1
+    def tick(self):
+        self.age += 1
 
-        self.rotate_by(0.01)
-        if self.count > 100 and self.count < 400:
-            self.velocity += self.forward * self.swim_strength
+        self.move()
+        self.photosynthesize()
+        self.metabolize()
+
+    def photosynthesize(self):
+        sun_strength = self.world.sun_map.value_at(self.pos)
+        self.energy += sun_strength
+
+    def metabolize(self):
+        self.energy -= self.metabolism
+        print(self.energy)
+        if self.energy <= 0:
+            self.alive = False
+
+    def die(self):
+        pass
+
+    def move(self):
+        self.velocity *= config.friction
+
+        self.velocity += self.forward * self.swim_strength
         self.pos += self.velocity
         self.wrap_position()
 

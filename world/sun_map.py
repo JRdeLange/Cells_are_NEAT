@@ -18,7 +18,8 @@ class SunMap:
     def fill_map(self):
         for x in range(self.width):
             for y in range(self.height):
-                self.map[x][y] = self.noise([x / self.width, y / self.height])
+                # Noise is from -0.5 to 0.5, we want it from 0 to 1
+                self.map[x][y] = self.noise([x / self.width, y / self.height]) + 0.5
 
     def plot_map(self):
         plt.imshow(self.map, cmap='gray')
@@ -31,6 +32,6 @@ class SunMap:
         image = [[0] * self.height for x in range(self.width)]
         for x in range(self.width):
             for y in range(self.height):
-                value = self.map[x][y] + 0.5
+                value = self.map[x][y]
                 image[x][y] = [value * 255, value * 255, value * 255]
         return np.array(image)

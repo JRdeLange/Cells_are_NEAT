@@ -1,5 +1,6 @@
 from world.spawner import Spawner
 from world.sun_map import SunMap
+from cell.cell import Cell
 import config
 
 class World:
@@ -21,12 +22,20 @@ class World:
         self.spawner.spawn_n_cells(config.nr_of_cells)
 
     def tick(self):
-        self.move_cells()
+        # Everyone acts
+        for cell in self.cells:
+            cell.tick()
+
+        # Dead cells are removed
+        for cell in self.cells:
+            if not cell.alive:
+                cell.die()
+                self.cells.remove(cell)
 
     def move_cells(self):
         for cell in self.cells:
             cell.move()
-            print(self.sun_map.value_at(cell.pos))
+            cell.metabolize()
 
             # Apply friction
             cell.velocity *= config.friction
