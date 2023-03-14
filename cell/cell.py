@@ -24,6 +24,8 @@ class Cell:
         self.age = 0
         self.alive = True
 
+        self.action_dict = config.radian_dict
+
     def set_genome_and_net(self, genome, net):
         self.genome = genome
         self.net = net
@@ -38,10 +40,12 @@ class Cell:
         observation.insert(0, 1.0)
 
         output = self.net.activate(observation)
-        action = self.max_action(output)
-        self.rotate_by(action)
+        turn = output[0:2]
+        swim = output[3] > config.act_threshold
+        turn = self.max_action(turn)
+        self.rotate_by(turn)
 
-        self.move()
+        self.move(swim)
         self.photosynthesize()
         self.metabolize()
 
@@ -51,9 +55,9 @@ class Cell:
         for idx, value in enumerate(output):
             if highest is None or value > highest:
                 highest = value
-                action = [config.action_dict[idx]]
+                action = [self.action_dict[idx]]
             if value == highest:
-                action.append(config.action_dict[idx])
+                action.append(self.action_dict[idx])
         return random.choice(action)
 
     def photosynthesize(self):
@@ -63,15 +67,16 @@ class Cell:
     def metabolize(self):
         self.energy -= self.metabolism
         #if self.energy <= 0:
-            #self.alive = False
+        #    self.alive = False
 
     def die(self):
         pass
 
-    def move(self):
+    def move(self, swim):
         self.velocity *= config.friction
 
-        self.velocity += self.forward * self.swim_strength
+        if swim:
+            self.velocity += self.forward * self.swim_strength
         self.pos += self.velocity
         self.wrap_position()
 

@@ -27,6 +27,10 @@ class SunMap:
             for y in range(self.height):
                 # Noise is from -0.5 to 0.5, we want it from 0 to 1
                 self.map[x][y] = self.noise([x / self.width, y / self.height]) + 0.5
+                # Threshold
+                self.map[x][y] *= self.map[x][y] + 0.2
+                if self.map[x][y] < config.sun_map_threshold:
+                    self.map[x][y] = 0
 
     def plot_map(self):
         plt.imshow(self.map, cmap='gray')
@@ -51,4 +55,7 @@ class SunMap:
                 value = (radius - dist) / radius
                 if value > 0:
                     self.map[x][y] = value
+                # Threshold
+                if self.map[x][y] < config.sun_map_threshold:
+                    self.map[x][y] = 0
 

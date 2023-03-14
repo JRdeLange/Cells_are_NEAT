@@ -62,10 +62,11 @@ class NeatTrainer:
     def assign_cell_fitnesses(self, world):
         highest = 0
         top_genome = None
+        print("Survival fraction is", len(world.cells) / len(world.cells + world.cell_archive))
         for cell in world.cells + world.cell_archive:
-            cell.genome.fitness = world.sun_map.value_at(cell.pos)
+            cell.genome.fitness = cell.energy
             if cell.genome.fitness > highest:
+                highest = cell.genome.fitness
                 top_genome = cell.genome
-        print(top_genome)
 
 
