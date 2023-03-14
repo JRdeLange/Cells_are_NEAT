@@ -1,7 +1,6 @@
 from world.world import World
 from renderer.renderer import Renderer
 from neat_trainer.neat_trainer import NeatTrainer
-from renderer.
 
 def main():
     renderer = Renderer(None)

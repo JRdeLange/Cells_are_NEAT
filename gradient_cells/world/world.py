@@ -14,7 +14,7 @@ class World:
         self.spawner = Spawner(self)
         self.cells = []
         self.cell_archive = []
-        # self.sun_map = SunMap()
+        self.sun_map = SunMap()
 
         # Initialize
         # self.populate_world()

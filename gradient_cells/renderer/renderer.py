@@ -24,7 +24,7 @@ class Renderer:
         self.clock.tick(60)
 
     def draw(self):
-        # self.draw_sun_map()
+        self.draw_sun_map()
         self.draw_cells()
 
     def draw_sun_map(self):
@@ -37,10 +37,10 @@ class Renderer:
     def cache_sprites(self):
         self.tk.add_sprite("cell", path="./sprites/cell.png")
 
-        '''sun_map = pygame.surfarray.make_surface(self.world.sun_map.as_image())
+        sun_map = pygame.surfarray.make_surface(self.world.sun_map.as_image())
         sun_map = pygame.transform.scale_by(sun_map, [self.world.sun_map.scale, self.world.sun_map.scale])
         sun_map.set_alpha(config.sun_map_alpha)
-        self.tk.add_sprite("sun_map", surface=sun_map)'''
+        self.tk.add_sprite("sun_map", surface=sun_map)
 
     # Remove all generation-specific things
     def reset(self):
