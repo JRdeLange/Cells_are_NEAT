@@ -29,7 +29,7 @@ class NeatTrainer:
     def eval_genomes(self, genomes, neat_config):
         print(self.population.generation)
         self.render = False
-        if self.population.generation % 20 == 0:
+        if self.population.generation % 10 == 0:
             self.render = True
         # Create and fill world
         world = World()
@@ -64,7 +64,7 @@ class NeatTrainer:
         top_genome = None
         print("Survival fraction is", len(world.cells) / len(world.cells + world.cell_archive))
         for cell in world.cells + world.cell_archive:
-            cell.genome.fitness = cell.energy
+            cell.genome.fitness = world.sun_map.value_at(cell.pos)
             if cell.genome.fitness > highest:
                 highest = cell.genome.fitness
                 top_genome = cell.genome

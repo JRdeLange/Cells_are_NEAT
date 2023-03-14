@@ -1,6 +1,6 @@
 from world.spawner import Spawner
 from world.sun_map import SunMap
-from cell.cell import Cell
+from cells.herbivore import Herbivore
 import config
 
 class World:

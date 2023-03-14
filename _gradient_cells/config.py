@@ -2,7 +2,7 @@ from vecmath.Vec2D import Vec2D
 
 # Trainer
 neat_config_path = "./neat_config"
-steps_per_generation = 2500
+steps_per_generation = 1500
 
 # Renderer
 window_width = 1200
@@ -16,9 +16,9 @@ world_height = window_height
 nr_of_cells = 1
 friction = 0.97
 # "perlin" / "blobs"
-sun_map_type = "perlin"
+sun_map_type = "blobs"
 sun_map_scale = 10
-sun_map_threshold = 0.3
+sun_map_threshold = 0.0
 
 # Cells
 starting_energy = 50

@@ -32,10 +32,10 @@ class Renderer:
 
     def draw_cells(self):
         for cell in self.world.cells:
-            self.tk.render_sprite("cell", cell.pos, cell.forward.as_degrees())
+            self.tk.render_sprite("cells", cell.pos, cell.forward.as_degrees())
 
     def cache_sprites(self):
-        self.tk.add_sprite("cell", path="./sprites/cell.png")
+        self.tk.add_sprite("cells", path="./sprites/cells.png")
 
         sun_map = pygame.surfarray.make_surface(self.world.sun_map.as_image())
         sun_map = pygame.transform.scale_by(sun_map, [self.world.sun_map.scale, self.world.sun_map.scale])

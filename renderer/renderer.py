@@ -1,6 +1,7 @@
 import pygame
 from pygame_toolkit.pygame_toolkit import PygameToolkit
 from vecmath.Vec2D import Vec2D
+import numpy as np
 import config
 
 class Renderer:
@@ -25,6 +26,7 @@ class Renderer:
 
     def draw(self):
         # self.draw_sun_map()
+        self.draw_plants()
         self.draw_cells()
 
     def draw_sun_map(self):
@@ -34,13 +36,14 @@ class Renderer:
         for cell in self.world.cells:
             self.tk.render_sprite("cell", cell.pos, cell.forward.as_degrees())
 
+    def draw_plants(self):
+        for plant in self.world.plants:
+            self.tk.render_sprite("plant", plant.pos, np.degrees(plant.angle))
+
     def cache_sprites(self):
         self.tk.add_sprite("cell", path="./sprites/cell.png")
 
-        '''sun_map = pygame.surfarray.make_surface(self.world.sun_map.as_image())
-        sun_map = pygame.transform.scale_by(sun_map, [self.world.sun_map.scale, self.world.sun_map.scale])
-        sun_map.set_alpha(config.sun_map_alpha)
-        self.tk.add_sprite("sun_map", surface=sun_map)'''
+        self.tk.add_sprite("plant", path="./sprites/plant.png")
 
     # Remove all generation-specific things
     def reset(self):

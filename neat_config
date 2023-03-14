@@ -4,7 +4,7 @@
 fitness_criterion     = max
 fitness_threshold     = 3.9
 no_fitness_termination = True
-pop_size              = 100
+pop_size              = 50
 reset_on_extinction   = False
 
 
@@ -53,8 +53,8 @@ compatibility_disjoint_coefficient = 1.0
 compatibility_weight_coefficient   = 0.5
 
 # connection add/remove rates
-conn_add_prob           = 0.3
-conn_delete_prob        = 0.3
+conn_add_prob           = 0.1
+conn_delete_prob        = 0.1
 
 # connection enable options
 enabled_default         = True
@@ -69,8 +69,9 @@ node_delete_prob        = 0.1
 
 # network parameters
 num_hidden              = 2
-# constant + 3 sunlight samples
-num_inputs              = 4
+# constant + 2D vector to closest food
+num_inputs              = 3
+# left, center, right and move
 num_outputs             = 4
 
 # node response options

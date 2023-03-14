@@ -15,3 +15,14 @@ def sense_sunlight(cell):
         observation.append(value)
 
     return observation
+
+
+def closest_plant(cell):
+    return cell.world.closest_plant_dict[cell]
+
+
+class PlantInfo:
+
+    def __init__(self, plant, vector):
+        self.plant = plant
+        self.vector = vector

@@ -64,7 +64,7 @@ class NeatTrainer:
         top_genome = None
         print("Survival fraction is", len(world.cells) / len(world.cells + world.cell_archive))
         for cell in world.cells + world.cell_archive:
-            cell.genome.fitness = cell.energy
+            cell.genome.fitness = cell.plants_eaten
             if cell.genome.fitness > highest:
                 highest = cell.genome.fitness
                 top_genome = cell.genome

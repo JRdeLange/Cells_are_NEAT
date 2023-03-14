@@ -1,7 +1,7 @@
 import vecmath.vecmath as vm
 from vecmath.Vec2D import Vec2D
 import config
-import cell.senses as senses
+import cells.senses as senses
 import random
 
 

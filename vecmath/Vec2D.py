@@ -1,4 +1,6 @@
 import math
+import vecmath.vecmath as vm
+
 
 class Vec2D:
 
@@ -14,8 +16,10 @@ class Vec2D:
             raise ValueError("Improper initialisation of Vec2D. Provide an x and y or a rad")
 
     def as_tuple(self):
-        as_tuple = (self.x, self.y)
-        return as_tuple
+        return (self.x, self.y)
+
+    def as_list(self):
+        return [self.x, self.y]
 
     def as_radians(self):
         return math.atan2(self.y, self.x)
@@ -49,6 +53,9 @@ class Vec2D:
         elif new.y >= y_max:
             new.y -= (y_max - y_min)
         return new
+
+    def wrapping_vector_to(self, to, space_width, space_height):
+        return vm.wrapping_vector(self, to, space_width, space_height)
 
     # Redefine adding
     def __add__(self, other):
