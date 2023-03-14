@@ -4,6 +4,8 @@ import random
 import numpy as np
 
 
+two_pi = math.pi * 2
+
 def random_vector_2d(x_bound, y_bound):
     x = random.random() * x_bound
     y = random.random() * y_bound
@@ -31,4 +33,18 @@ def wrapping_vector(origin, to, space_width, space_height):
                    distances_y[np.argmin(list(map(abs, distances_y)))])
 
     return vector
+
+
+def wrapping_angle(origin, to):
+    global two_pi
+    to = to.as_radians()
+    origin = origin.as_radians()
+    nothing = to - origin
+    minus = (to - two_pi) - origin
+    if abs(minus) < abs(nothing):
+        return minus
+    plus = (to + two_pi) - origin
+    if abs(plus) < abs(nothing):
+        return plus
+    return nothing
 

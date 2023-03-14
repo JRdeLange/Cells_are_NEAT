@@ -16,7 +16,7 @@ class Vec2D:
             raise ValueError("Improper initialisation of Vec2D. Provide an x and y or a rad")
 
     def as_tuple(self):
-        return (self.x, self.y)
+        return self.x, self.y
 
     def as_list(self):
         return [self.x, self.y]
@@ -53,6 +53,9 @@ class Vec2D:
         elif new.y >= y_max:
             new.y -= (y_max - y_min)
         return new
+
+    def angle_to(self, to):
+        return vm.wrapping_angle(self, to)
 
     def wrapping_vector_to(self, to, space_width, space_height):
         return vm.wrapping_vector(self, to, space_width, space_height)

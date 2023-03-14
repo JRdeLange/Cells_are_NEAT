@@ -12,6 +12,7 @@ class Plant:
         self.angle = random.random() * 2 * math.pi
         self.speed = config.plant_speed + random.random() * 0.2
         self.world = world
+        self.already_eaten = False
 
     def tick(self):
         self.move()
@@ -33,5 +34,5 @@ class Plant:
             self.pos.y += config.world_height
 
     def eaten(self):
-        print("eaten!")
+        self.already_eaten = True
         self.world.plant_eaten(self)

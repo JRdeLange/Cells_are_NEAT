@@ -39,4 +39,4 @@ direction_dict = {0: Vec2D(1, 0),
 # Plants
 nr_of_plants = 20
 plant_speed = 0.5
-plant_spin_speed = 0.02
+plant_spin_speed = 0.05

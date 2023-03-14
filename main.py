@@ -3,6 +3,7 @@ from world.world import World
 from renderer.renderer import Renderer
 from neat_trainer.neat_trainer import NeatTrainer
 from vecmath.Vec2D import Vec2D
+import math
 
 
 def main():

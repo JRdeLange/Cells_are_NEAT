@@ -6,7 +6,7 @@ import config
 
 class Renderer:
 
-    def __init__(self, world):
+    def __init__(self, world=None):
         pygame.init()
         self.world = world
 
@@ -19,6 +19,10 @@ class Renderer:
         self.cache_sprites()
 
     def tick(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return
+
         self.tk.clear(color=[100, 100, 170])
         self.draw()
         pygame.display.flip()

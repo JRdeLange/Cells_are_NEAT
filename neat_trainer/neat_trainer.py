@@ -1,6 +1,7 @@
 import neat
 from world.world import World
 import config
+from renderer.renderer import Renderer
 
 
 class NeatTrainer:
@@ -19,6 +20,7 @@ class NeatTrainer:
         self.population.add_reporter(neat.Checkpointer(generation_interval=10, time_interval_seconds=None,
                                                        filename_prefix="testing-"))
 
+        self.population = neat.Checkpointer.restore_checkpoint("./testing-19")
         self.train(101)
 
         self.render = config.render
@@ -27,9 +29,9 @@ class NeatTrainer:
         self.population.run(self.eval_genomes, generations)
 
     def eval_genomes(self, genomes, neat_config):
-        print(self.population.generation)
+        print("generation", self.population.generation)
         self.render = False
-        if self.population.generation % 20 == 0:
+        if self.population.generation % 1 == 0:
             self.render = True
         # Create and fill world
         world = World()
@@ -60,13 +62,8 @@ class NeatTrainer:
                 self.renderer.tick()
 
     def assign_cell_fitnesses(self, world):
-        highest = 0
-        top_genome = None
-        print("Survival fraction is", len(world.cells) / len(world.cells + world.cell_archive))
+        total_eaten = 0
         for cell in world.cells + world.cell_archive:
             cell.genome.fitness = cell.plants_eaten
-            if cell.genome.fitness > highest:
-                highest = cell.genome.fitness
-                top_genome = cell.genome
-
-
+            total_eaten += cell.plants_eaten
+        print("eaten plants:", total_eaten)

@@ -35,8 +35,9 @@ class Herbivore:
 
     def tick(self):
         self.closest_food_info = senses.closest_plant(self)
-        observation = self.closest_food_info.vector.as_list()
-        observation.insert(0, 1.0)
+        angle_to_food = self.forward.angle_to(self.closest_food_info.vector)
+        distance_to_food = self.closest_food_info.vector.length()
+        observation = [1.0, angle_to_food, distance_to_food]
 
         output = self.net.activate(observation)
         turn = output[0:2]
@@ -61,8 +62,9 @@ class Herbivore:
 
     def eat(self):
         if self.closest_food_info.vector.length() < config.eating_distance:
-            self.plants_eaten += 1
-            self.closest_food_info.plant.eaten()
+            if not self.closest_food_info.plant.already_eaten:
+                self.plants_eaten += 1
+                self.closest_food_info.plant.eaten()
 
     def die(self):
         self.world.cell_died(self)
