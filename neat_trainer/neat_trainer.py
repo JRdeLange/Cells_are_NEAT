@@ -20,7 +20,7 @@ class NeatTrainer:
         self.population.add_reporter(neat.Checkpointer(generation_interval=10, time_interval_seconds=None,
                                                        filename_prefix="testing-"))
 
-        self.population = neat.Checkpointer.restore_checkpoint("./testing-19")
+        self.population = neat.Checkpointer.restore_checkpoint("./testing-59")
         self.train(101)
 
         self.render = config.render
