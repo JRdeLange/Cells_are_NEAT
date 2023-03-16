@@ -2,7 +2,7 @@ from vecmath.Vec2D import Vec2D
 
 # Trainer
 neat_config_path = "./neat_config"
-steps_per_generation = 2000
+steps_per_generation = 1000
 
 # Renderer
 window_width = 1200

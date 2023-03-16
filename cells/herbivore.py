@@ -14,7 +14,7 @@ class Herbivore:
 
         self.pos = pos
         self.forward = forward
-        self.velocity = 0
+        self.velocity = Vec2D(0, 0)
 
         self.swim_strength = config.swim_strength
         self.sunlight_probe_length = config.sunlight_probe_length
@@ -36,11 +36,15 @@ class Herbivore:
     def tick(self):
         self.closest_food_info = senses.closest_plant(self)
         angle_to_food = self.forward.angle_to(self.closest_food_info.vector)
+        angle_to_velocity = self.forward.angle_to(self.velocity)
+        if self.velocity == Vec2D(0, 0):
+            angle_to_velocity = 0
         distance_to_food = self.closest_food_info.vector.length()
-        observation = [1.0, angle_to_food, distance_to_food]
+        observation = [1.0, angle_to_food, distance_to_food, angle_to_velocity]
+        #observation = observation[0:3]
 
         output = self.net.activate(observation)
-        turn = output[0:2]
+        turn = output[0:3]
         swim = output[3] > config.act_threshold
 
         turn = self.max_action(turn)

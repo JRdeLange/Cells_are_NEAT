@@ -53,15 +53,16 @@ compatibility_disjoint_coefficient = 1.0
 compatibility_weight_coefficient   = 0.5
 
 # connection add/remove rates
-conn_add_prob           = 0.1
-conn_delete_prob        = 0.1
+conn_add_prob           = 0.3
+conn_delete_prob        = 0.3
 
 # connection enable options
 enabled_default         = True
 enabled_mutate_rate     = 0.01
 
 feed_forward            = True
-initial_connection      = full_direct
+# options: unconnected, fs_neat_nohidden, fs_neat_hidden, full_nodirect, full_direct, partial_nodirect, partial_direct
+initial_connection      = fs_neat_nohidden
 
 # node add/remove rates
 node_add_prob           = 0.3
@@ -69,8 +70,8 @@ node_delete_prob        = 0.3
 
 # network parameters
 num_hidden              = 0
-# constant + angle to food + distance to food
-num_inputs              = 3
+# constant + angle to food + distance to food + angle_to_velocity
+num_inputs              = 4
 # left, center, right and move
 num_outputs             = 4
 

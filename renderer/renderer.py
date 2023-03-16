@@ -42,7 +42,7 @@ class Renderer:
 
     def draw_plants(self):
         for plant in self.world.plants:
-            self.tk.render_sprite("plant", plant.pos, np.degrees(plant.angle))
+            self.tk.render_sprite("plant", plant.pos, np.degrees(plant.angle), size=Vec2D(2, 2))
 
     def cache_sprites(self):
         self.tk.add_sprite("cell", path="./sprites/cell.png")

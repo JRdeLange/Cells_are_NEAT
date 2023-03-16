@@ -19,8 +19,10 @@ class NeatTrainer:
         self.population.add_reporter(self.statistics)
         self.population.add_reporter(neat.Checkpointer(generation_interval=10, time_interval_seconds=None,
                                                        filename_prefix="testing-"))
+        self.population.add_reporter(neat.StdOutReporter(True))
 
-        self.population = neat.Checkpointer.restore_checkpoint("./testing-59")
+        self.population = neat.Checkpointer.restore_checkpoint("./testing-49")
+        self.showcase_best = False
         self.train(101)
 
         self.render = config.render
@@ -29,10 +31,13 @@ class NeatTrainer:
         self.population.run(self.eval_genomes, generations)
 
     def eval_genomes(self, genomes, neat_config):
-        print("generation", self.population.generation)
         self.render = False
-        if self.population.generation % 1 == 0:
+        if self.population.generation == 53:
             self.render = True
+            self.showcase_best = True
+            config.steps_per_generation = 4000
+            config.nr_of_plants = 2
+            input("wait")
         # Create and fill world
         world = World()
         world.populate_world(len(genomes))
@@ -51,7 +56,10 @@ class NeatTrainer:
     def assign_genomes_and_nets(self, world, genomes, neat_config):
         for idx, cell in enumerate(world.cells):
             genome_id, genome = genomes[idx]
-            net = neat.nn.FeedForwardNetwork.create(genome, neat_config)
+            if self.showcase_best:
+                net = neat.nn.FeedForwardNetwork.create(self.population.best_genome, neat_config)
+            else:
+                net = neat.nn.FeedForwardNetwork.create(genome, neat_config)
             cell.genome = genome
             cell.net = net
 

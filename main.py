@@ -11,13 +11,14 @@ def main():
     trainer = NeatTrainer(renderer)
 
     # For debug
-    '''
-    world = World()
-    world.populate_world(1)
-    renderer.set_world(world
-    while True:
-        world.tick()
-        renderer.tick()'''
+    if False:
+        world = World()
+        world.populate_world(1)
+        renderer.set_world(world)
+        while True:
+            world.tick()
+            renderer.tick()
+
 
 if __name__ == "__main__":
     main()
