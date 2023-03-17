@@ -35,8 +35,8 @@ class NeatTrainer:
         if self.population.generation == 53:
             self.render = True
             self.showcase_best = True
-            config.steps_per_generation = 4000
-            config.nr_of_plants = 2
+            config.steps_per_generation = 10000
+            config.nr_of_plants = 5
             input("wait")
         # Create and fill world
         world = World()
