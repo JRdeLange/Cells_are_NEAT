@@ -1,6 +1,6 @@
 # General idea
 
-Several for-fun experiments using NeuroEvolution of Augmenting Topologies (https://ieeexplore.ieee.org/abstract/document/6790655).
+Several for-fun experiments using NeuroEvolution of Augmenting Topologies (https://ieeexplore.ieee.org/abstract/document/6790655). This technique makes use of random brain networks for the to-be-trained agents, and through an evolutionary algorithm works towards more and more effective agents.
 
 Attempt 1 (in the _\_gradient\_cells_ folder) tried to get small cells to move around and follow a gradient, which did not work properly
 
