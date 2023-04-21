@@ -4,6 +4,7 @@ from vecmath.Vec2D import Vec2D
 import numpy as np
 import config
 
+
 class Renderer:
 
     def __init__(self, world=None):

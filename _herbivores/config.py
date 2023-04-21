@@ -14,7 +14,7 @@ render = True
 world_width = window_width
 world_height = window_height
 nr_of_cells = None
-friction = 0.975
+friction = 0.95
 # "perlin" / "blobs"
 sun_map_type = "perlin"
 sun_map_scale = 10
