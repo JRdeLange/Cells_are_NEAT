@@ -1,4 +1,4 @@
-# General idea
+# Cells are NEAT
 
 Several for-fun experiments using NeuroEvolution of Augmenting Topologies (https://ieeexplore.ieee.org/abstract/document/6790655). This technique makes use of random brain networks for the to-be-trained agents, and through an evolutionary algorithm works towards more and more effective agents. The code is still very much work in progress; I want to, once I am done with my thesis, extend the library used for NEAT to support mutiple chromosomes. This will allow for co-evolution of both cell behavior and cell properties at once. What is relatively finished are two earlier attempts, also in this repository.
 
